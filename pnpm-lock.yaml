@@ -6,9 +6,11 @@ importers:
     specifiers:
       dotenv: ^16.0.3
       fs-extra: ^10.1.0
+      open: ^8.4.0
     dependencies:
       dotenv: registry.npmmirror.com/dotenv/16.0.3
       fs-extra: registry.npmmirror.com/fs-extra/10.1.0
+      open: registry.npmmirror.com/open/8.4.0
 
   scripts/image.info.check:
     specifiers:
@@ -574,6 +576,13 @@ packages:
       strip-dirs: registry.npmmirror.com/strip-dirs/2.1.0
     dev: false
 
+  registry.npmmirror.com/define-lazy-prop/2.0.0:
+    resolution: {integrity: sha512-Ds09qNh8yw3khSjiJjiUInaGX9xlqZDY7JVryGxdxV7NPeuqQfplOpQ66yJFZut3jLa5zOwkXw1g9EI2uKh4Og==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/define-lazy-prop/-/define-lazy-prop-2.0.0.tgz}
+    name: define-lazy-prop
+    version: 2.0.0
+    engines: {node: '>=8'}
+    dev: false
+
   registry.npmmirror.com/dom-walk/0.1.2:
     resolution: {integrity: sha512-6QvTW9mrGeIegrFXdtQi9pk7O/nSK6lSdXW2eqUspN5LWD7UTji2Fqw5V2YLjBpHEoU9Xl/eUWNpDeZvoyOv2w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/dom-walk/-/dom-walk-0.1.2.tgz}
     name: dom-walk
@@ -942,6 +951,14 @@ packages:
       has: registry.npmmirror.com/has/1.0.3
     dev: false
 
+  registry.npmmirror.com/is-docker/2.2.1:
+    resolution: {integrity: sha512-F+i2BKsFrH66iaUFc0woD8sLy8getkwTwtOBjvs56Cx4CgJDeKQeqfz8wAYiSb8JOprWhHH5p77PbmYCvvUuXQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/is-docker/-/is-docker-2.2.1.tgz}
+    name: is-docker
+    version: 2.2.1
+    engines: {node: '>=8'}
+    hasBin: true
+    dev: false
+
   registry.npmmirror.com/is-electron/2.2.1:
     resolution: {integrity: sha512-r8EEQQsqT+Gn0aXFx7lTFygYQhILLCB+wn0WCDL5LZRINeLH/Rvw1j2oKodELLXYNImQ3CRlVsY8wW4cGOsyuw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/is-electron/-/is-electron-2.2.1.tgz}
     name: is-electron
@@ -985,6 +1002,15 @@ packages:
     resolution: {integrity: sha512-ITvGim8FhRiYe4IQ5uHSkj7pVaPDrCTkNd3yq3cV7iZAcJdHTUMPMEHcqSOy9xZ9qFenQCvi+2wjH9a1nXqHww==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/is-url/-/is-url-1.2.4.tgz}
     name: is-url
     version: 1.2.4
+    dev: false
+
+  registry.npmmirror.com/is-wsl/2.2.0:
+    resolution: {integrity: sha512-fKzAra0rGJUUBwGBgNkHZuToZcn+TtXHpeCgmkMJMMYx1sQDYaCSyjJBSCa2nH1DGm7s3n1oBnohoVTBaN7Lww==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/is-wsl/-/is-wsl-2.2.0.tgz}
+    name: is-wsl
+    version: 2.2.0
+    engines: {node: '>=8'}
+    dependencies:
+      is-docker: registry.npmmirror.com/is-docker/2.2.1
     dev: false
 
   registry.npmmirror.com/isarray/1.0.0:
@@ -1175,6 +1201,17 @@ packages:
     version: 1.4.0
     dependencies:
       wrappy: registry.npmmirror.com/wrappy/1.0.2
+    dev: false
+
+  registry.npmmirror.com/open/8.4.0:
+    resolution: {integrity: sha512-XgFPPM+B28FtCCgSb9I+s9szOC1vZRSwgWsRUA5ylIxRTgKozqjOCrVOqGsYABPYK5qnfqClxZTFBa8PKt2v6Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/open/-/open-8.4.0.tgz}
+    name: open
+    version: 8.4.0
+    engines: {node: '>=12'}
+    dependencies:
+      define-lazy-prop: registry.npmmirror.com/define-lazy-prop/2.0.0
+      is-docker: registry.npmmirror.com/is-docker/2.2.1
+      is-wsl: registry.npmmirror.com/is-wsl/2.2.0
     dev: false
 
   registry.npmmirror.com/opencollective-postinstall/2.0.3:

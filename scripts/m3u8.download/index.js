@@ -5,8 +5,9 @@ const download = require('download');
 const m3u8Parser = require('m3u8-parser');
 const { exec } = require('child_process');
 const pathToFfmpeg = require('ffmpeg-static');
+const open = require('open');
 
-const { M3U8_URL, OUTPUT_DIR, OUTPUT_FORMAT } = process.env;
+const { M3U8_URL, OUTPUT_DIR, OUTPUT_FORMAT, FFMPEG_PATH } = process.env;
 
 const clearEffect = () => {
     return fs.remove(path.resolve(__dirname, OUTPUT_DIR));
@@ -47,8 +48,10 @@ const downloadM3u8Segments = async (segments) => {
 };
 
 const splicingVideos = async (fileListPath) => {
-    const cmd = `${pathToFfmpeg} -f concat -safe 0 -i ${fileListPath}  output.${OUTPUT_FORMAT}`;
-    return new Promise((resolve, reject) => {
+    const cmd = `${
+        FFMPEG_PATH || pathToFfmpeg
+    } -f concat -safe 0 -i ${fileListPath}  output.${OUTPUT_FORMAT}`;
+    await new Promise((resolve, reject) => {
         console.log(`run : ${cmd}`);
         const task = exec(cmd, (error) => {
             if (error) {
@@ -59,6 +62,7 @@ const splicingVideos = async (fileListPath) => {
         });
         task.stderr.on('data', (data) => console.log(data));
     });
+    await open(`output.${OUTPUT_FORMAT}`);
 };
 
 (async function () {
