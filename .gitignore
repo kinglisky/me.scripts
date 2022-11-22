@@ -25,3 +25,10 @@ dist-ssr
 *.sw?
 
 *.traineddata
+
+.DS_Store
+dist
+*.local
+articles/index.html
+.remote-assets
+components.d.ts
