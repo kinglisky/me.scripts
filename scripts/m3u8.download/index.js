@@ -32,10 +32,15 @@ const downloadM3u8Segments = async (segments) => {
     const baseURL = path.dirname(M3U8_URL);
     const tasks = segments.map(async (item, index) => {
         const videoSegmentURL = `${baseURL}/${item.uri}`;
+        // 有些视频资源的路径中会带有 ?xxx=xxx 的查询参数，需要将其剔除
+        const outputFileName = `${index}${path
+            .extname(item.uri)
+            .replace(/\?.+$/g, '')}`;
+
         const videoSegmentOutput = path.resolve(
             __dirname,
             OUTPUT_DIR,
-            `${index}${path.extname(item.uri)}`
+            outputFileName
         );
         await fs.writeFile(videoSegmentOutput, await download(videoSegmentURL));
         console.log(`${index}: ${item.uri} download ~`);
