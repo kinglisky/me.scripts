@@ -25,6 +25,10 @@ const parseM3u8 = async (filePath) => {
     const parser = new m3u8Parser.Parser();
     parser.push(m3u8Content);
     parser.end();
+    await fs.writeFile(
+        path.resolve(__dirname, OUTPUT_DIR, 'index.m3u8.json'),
+        JSON.stringify(parser.manifest)
+    );
     return parser.manifest;
 };
 
