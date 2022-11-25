@@ -1,0 +1,29 @@
+xlsxList:
+    - filePath: ./download/input0.xlsx
+      primaryKey: 姓名
+
+    - filePath: ./download/input1.xlsx
+      primaryKey: 学生姓名
+
+docx: ./tpl.docx
+
+output: ./output
+
+schema:
+    TN: 教师姓名
+    SN: 学生姓名
+    FN: 成员1姓名
+    MN: 成员2姓名
+    SUBJECT: 任教学科
+    BIRTH: 出生日期
+    PHONE1: 成员1联系电话
+    PHONE2: 成员2联系电话
+    ADR: 现居住地详细地址
+    CLASS: 任教班级
+    CHA: 性格特点
+    DATE: 家访时间
+    COMMUNITY: 所在社区
+    CONTENT: 家访内容
+    FEEDBACK: 家长反馈
+    PIC: 家访照片
+    COMMENT: 家访随想

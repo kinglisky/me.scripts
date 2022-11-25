@@ -9,6 +9,9 @@
     "dependencies": {
         "dotenv": "^16.0.3",
         "fs-extra": "^10.1.0",
-        "open": "^8.4.0"
+        "lodash": "^4.17.21",
+        "node-xlsx": "^0.21.0",
+        "open": "^8.4.0",
+        "yaml": "^2.1.3"
     }
 }
