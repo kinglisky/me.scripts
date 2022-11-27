@@ -9,6 +9,8 @@ lerna-debug.log*
 
 node_modules
 download
+config
+output
 lib
 dist
 dist-ssr

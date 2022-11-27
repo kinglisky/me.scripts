@@ -17,9 +17,7 @@ const parseXLSX = async (filePath, primaryKey) => {
     filePath = path.resolve(__dirname, filePath);
     const data = await xlsx.parse(filePath, { raw: false });
     const sheet = data[0];
-    const headers = sheet.data
-        .shift()
-        .map((name) => name.replace(/\s?（.*）\s?/g, ''));
+    const headers = sheet.data.shift().map((name) => name.replace(/\s?（.*）\s?/g, ''));
 
     return sheet.data.reduce((map, item) => {
         const res = headers.reduce((row, key, index) => {
@@ -50,6 +48,8 @@ const parseXLSXList = async (config) => {
             });
         })
         .sort((a, b) => a['座号'] - b['座号']);
+
+    await fs.ensureDir(path.resolve(__dirname, config.output));
     await fs.writeFile(
         path.resolve(__dirname, config.output, 'rows.json'),
         JSON.stringify(rows, null, 4)
@@ -90,10 +90,7 @@ const generateDocx = async (config, zip, row) => {
     });
 
     const outputBaseDir = path.resolve(__dirname, config.output);
-    const outputPath = path.resolve(
-        outputBaseDir,
-        `${row['座号']}-${row['学生姓名']}.docx`
-    );
+    const outputPath = path.resolve(outputBaseDir, `${row['座号']}-${row['学生姓名']}.docx`);
     await fs.ensureDir(outputBaseDir);
     await fs.writeFile(outputPath, buf);
     console.log(`gen ${outputPath} ~`);
