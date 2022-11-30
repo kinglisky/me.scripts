@@ -42,9 +42,9 @@ const parseXLSXList = async (config) => {
     const rows = Object.values(record)
         .map((item) => {
             return Object.assign(item, {
-                教师姓名: 'xxx',
+                教师姓名: '许明弥',
                 任教学科: '语文',
-                任教班级: '一年级 xx 班',
+                任教班级: '一年级 13 班',
             });
         })
         .sort((a, b) => a['座号'] - b['座号']);
@@ -58,7 +58,9 @@ const parseXLSXList = async (config) => {
     return rows;
 };
 
-const generateDocx = async (config, zip, row) => {
+const generateDocx = async (config, docxFileBuf, row) => {
+    const docxFileZip = new PizZip(docxFileBuf);
+
     const imageOpts = {
         centered: false,
         getImage: function (tagValue, tagName) {
@@ -71,7 +73,7 @@ const generateDocx = async (config, zip, row) => {
         },
     };
 
-    const doc = new Docxtemplater(zip, {
+    const doc = new Docxtemplater(docxFileZip, {
         paragraphLoop: true,
         linebreaks: true,
         modules: [new ImageModule(imageOpts)],
@@ -98,9 +100,8 @@ const generateDocx = async (config, zip, row) => {
 
 const generateDocxFiles = async (config, rows) => {
     const docxFileBuf = await fs.readFile(path.resolve(__dirname, config.docx));
-    const docxFileZip = new PizZip(docxFileBuf);
     const tasks = rows.map((row) => {
-        return generateDocx(config, docxFileZip, row);
+        return generateDocx(config, docxFileBuf, row);
     });
     await Promise.all(tasks);
 };

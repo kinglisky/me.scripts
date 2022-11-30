@@ -68,7 +68,7 @@ const checkPics = async (rows) => {
             const imgInfo = fs.statSync(picLocalPath);
             const fileSize = imgInfo.size / 1024;
 
-            const res = { name: target['学生姓名'] };
+            const res = { name: target['学生姓名'], path: picLocalPath };
 
             if (fileSize > LIMIT_PIC_SIZE) {
                 res.fileInfo = `${fileSize} kb 大小超出 ${LIMIT_PIC_SIZE}kb 限制`;
