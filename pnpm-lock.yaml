@@ -30,6 +30,16 @@ importers:
       '@slidev/theme-default': registry.npmmirror.com/@slidev/theme-default/0.21.2
       '@slidev/theme-seriph': registry.npmmirror.com/@slidev/theme-seriph/0.21.3
 
+  scripts/excel.adr.check:
+    specifiers:
+      fs-extra: ^10.1.0
+      json2csv: ^5.0.7
+      node-xlsx: ^0.21.0
+    dependencies:
+      fs-extra: registry.npmmirror.com/fs-extra/10.1.0
+      json2csv: registry.npmmirror.com/json2csv/5.0.7
+      node-xlsx: registry.npmmirror.com/node-xlsx/0.21.0
+
   scripts/excel.gen.docx:
     specifiers:
       docxtemplater: ^3.32.4

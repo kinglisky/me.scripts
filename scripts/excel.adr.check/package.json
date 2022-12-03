@@ -1,0 +1,17 @@
+{
+    "name": "excel.gen.docx",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "fs-extra": "^10.1.0",
+        "json2csv": "^5.0.7",
+        "node-xlsx": "^0.21.0"
+    }
+}
