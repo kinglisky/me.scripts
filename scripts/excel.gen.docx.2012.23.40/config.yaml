@@ -1,0 +1,27 @@
+xlsxList:
+    - filePath: ./download/input0.xlsx
+      primaryKey: 姓名
+
+    - filePath: ./download/input1.xlsx
+      primaryKey: 学生姓名
+
+    - filePath: ./download/学籍卡片.xlsx
+      primaryKey: 学生姓名
+
+docx: ./tpl.docx
+
+output: ./output
+
+schema:
+    ID: 座号
+    NA: 学生姓名
+    GENDER: 性别
+    FN: 成员1姓名
+    MN: 成员2姓名
+    BIRTH: 出生日期
+    PHONE1: 成员1联系电话
+    PHONE2: 成员2联系电话
+    ADR: 现居住详细地址
+    FADR: 家庭成员父亲工作或学习单位及职务
+    MADR: 家庭成员父亲工作或学习单位及职务
+    NATIVE: 孩子出生地某省某市

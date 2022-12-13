@@ -1,0 +1,17 @@
+{
+    "name": "excel.gen.docx.2012.23.40",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "docxtemplater": "^3.32.4",
+        "docxtemplater-image-module": "^3.1.0",
+        "pizzip": "^3.1.3"
+    }
+}
