@@ -18,10 +18,12 @@ schema:
     GENDER: 性别
     FN: 成员1姓名
     MN: 成员2姓名
+    RELATION1: 成员1关系
+    RELATION2: 成员2关系
     BIRTH: 出生日期
     PHONE1: 成员1联系电话
     PHONE2: 成员2联系电话
     ADR: 现居住详细地址
     FADR: 家庭成员父亲工作或学习单位及职务
-    MADR: 家庭成员父亲工作或学习单位及职务
+    MADR: 家庭成员母亲工作或学习单位及职务
     NATIVE: 孩子出生地某省某市

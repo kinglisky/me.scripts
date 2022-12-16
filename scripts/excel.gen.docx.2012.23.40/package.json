@@ -11,7 +11,7 @@
     "license": "ISC",
     "dependencies": {
         "docxtemplater": "^3.32.4",
-        "docxtemplater-image-module": "^3.1.0",
+        "open": "^8.4.0",
         "pizzip": "^3.1.3"
     }
 }

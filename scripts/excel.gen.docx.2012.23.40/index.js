@@ -5,6 +5,7 @@ const xlsx = require('node-xlsx');
 const merge = require('lodash/merge');
 const PizZip = require('pizzip');
 const Docxtemplater = require('docxtemplater');
+const open = require('open');
 
 const parseYamlConfig = async (yamlFilePath = './config.yaml') => {
     const file = await fs.readFile(yamlFilePath, 'utf-8');
@@ -61,7 +62,15 @@ const genDocx = async (rows, config) => {
                 res[tag] = (row[prop] || '').trim().replace(/\s/g, '');
                 return res;
             }, {});
-            data.ADR = data.ADR.replace(/(福建省福州市晋安区)+/g, '福建省福州市晋安区');
+            data.ADR = data.ADR.replace(/(福建省福州市晋安区)+/g, '福建省福州市晋安区')
+                .replace(/^福建省/, '')
+                .replace(/^福州市/, '福州');
+            if (data.RELATION1 === '母亲') {
+                const ma = data.FN;
+                const fn = data.MN;
+                data.MN = ma;
+                data.FN = fn;
+            }
             items.push(data);
             currentIndex += 1;
         }
@@ -79,9 +88,10 @@ const genDocx = async (rows, config) => {
         compression: 'DEFLATE',
     });
     const outputBaseDir = path.resolve(__dirname, config.output);
-    const outputPath = path.resolve(outputBaseDir, 'output.docx');
+    const outputPath = path.resolve(outputBaseDir, '学生基本情况班主任工作手册.docx');
     await fs.ensureDir(outputBaseDir);
     await fs.writeFile(outputPath, buf);
+    await open(outputPath);
 };
 
 (async function () {
