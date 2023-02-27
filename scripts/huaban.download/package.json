@@ -1,5 +1,5 @@
 {
-  "name": "zcool.download",
+  "name": "download.imags",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,8 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "crawlee": "^3.2.2",
-    "crawler": "^1.4.0",
     "download": "^8.0.0"
   }
 }
