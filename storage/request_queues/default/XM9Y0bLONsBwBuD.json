@@ -1,9 +1,0 @@
-{
-	"id": "XM9Y0bLONsBwBuD",
-	"json": "{\"id\":\"XM9Y0bLONsBwBuD\",\"url\":\"https://www.zcool.com.cn/u/13389811?p=8\",\"loadedUrl\":\"https://www.zcool.com.cn/u/13389811?p=8\",\"uniqueKey\":\"https://www.zcool.com.cn/u/13389811?p=8\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":1,\"errorMessages\":[\"TypeError: request.label is not a function\\n    at CheerioCrawler.requestHandler (E:\\\\dev\\\\mi.scripts\\\\scripts\\\\zcool.download\\\\index.js:8:72)\\n    at E:\\\\dev\\\\mi.scripts\\\\node_modules\\\\.pnpm\\\\registry.npmmirror.com+@crawlee+http@3.2.2\\\\node_modules\\\\@crawlee\\\\http\\\\internals\\\\http-crawler.js:311:81\\n    at wrap (E:\\\\dev\\\\mi.scripts\\\\node_modules\\\\.pnpm\\\\registry.npmmirror.com+@apify+timeout@0.3.0\\\\node_modules\\\\@apify\\\\timeout\\\\index.js:52:27)\\n    at E:\\\\dev\\\\mi.scripts\\\\node_modules\\\\.pnpm\\\\registry.npmmirror.com+@apify+timeout@0.3.0\\\\node_modules\\\\@apify\\\\timeout\\\\index.js:66:7\\n    at AsyncLocalStorage.run (node:async_hooks:309:14)\\n    at E:\\\\dev\\\\mi.scripts\\\\node_modules\\\\.pnpm\\\\registry.npmmirror.com+@apify+timeout@0.3.0\\\\node_modules\\\\@apify\\\\timeout\\\\index.js:65:13\\n    at new Promise (<anonymous>)\\n    at addTimeoutToPromise (E:\\\\dev\\\\mi.scripts\\\\node_modules\\\\.pnpm\\\\registry.npmmirror.com+@apify+timeout@0.3.0\\\\node_modules\\\\@apify\\\\timeout\\\\index.js:59:10)\\n    at CheerioCrawler._runRequestHandler (E:\\\\dev\\\\mi.scripts\\\\node_modules\\\\.pnpm\\\\registry.npmmirror.com+@crawlee+http@3.2.2\\\\node_modules\\\\@crawlee\\\\http\\\\internals\\\\http-crawler.js:311:53)\\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)\"],\"headers\":{},\"userData\":{\"__crawlee\":{\"state\":5}}}",
-	"method": "GET",
-	"orderNo": 1677518008437,
-	"retryCount": 1,
-	"uniqueKey": "https://www.zcool.com.cn/u/13389811?p=8",
-	"url": "https://www.zcool.com.cn/u/13389811?p=8"
-}
