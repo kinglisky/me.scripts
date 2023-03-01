@@ -48,7 +48,7 @@ importers:
     dependencies:
       docxtemplater: registry.npmmirror.com/docxtemplater/3.32.4
       docxtemplater-image-module: registry.npmmirror.com/docxtemplater-image-module/3.1.0
-      pizzip: registry.npmmirror.com/pizzip/3.1.3
+      pizzip: registry.npmmirror.com/pizzip/3.1.3_ustmoyzvfgos66cf2wvsplsloa
 
   scripts/excel.gen.docx.2012.23.40:
     specifiers:
@@ -105,15 +105,19 @@ importers:
 
   scripts/zcool.download:
     specifiers:
-      canny-edge-detector: ^1.0.0
       crawlee: ^3.2.2
+      delta-e: ^0.0.8
       download: ^8.0.0
       image-js: ^0.35.3
+      sharp: ^0.31.2
+      smartcrop: ^2.0.5
     dependencies:
-      canny-edge-detector: registry.npmmirror.com/canny-edge-detector/1.0.0
       crawlee: registry.npmmirror.com/crawlee/3.2.2
+      delta-e: registry.npmmirror.com/delta-e/0.0.8
       download: registry.npmmirror.com/download/8.0.0
       image-js: registry.npmmirror.com/image-js/0.35.3
+      sharp: registry.npmmirror.com/sharp/0.31.2
+      smartcrop: registry.npmmirror.com/smartcrop/2.0.5
 
 packages:
 
@@ -248,20 +252,6 @@ packages:
       semver: registry.npmmirror.com/semver/6.3.0
     transitivePeerDependencies:
       - supports-color
-    dev: false
-
-  registry.npmmirror.com/@babel/eslint-parser/7.19.1:
-    resolution: {integrity: sha512-AqNf2QWt1rtu2/1rLswy6CDP7H9Oh3mMhk177Y67Rg8d7RD9WfOLLv8CGn6tisFvS2htm86yIe1yLF6I1UDaGQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@babel/eslint-parser/-/eslint-parser-7.19.1.tgz}
-    name: '@babel/eslint-parser'
-    version: 7.19.1
-    engines: {node: ^10.13.0 || ^12.13.0 || >=14.0.0}
-    peerDependencies:
-      '@babel/core': '>=7.11.0'
-      eslint: ^7.5.0 || ^8.0.0
-    dependencies:
-      '@nicolo-ribaudo/eslint-scope-5-internals': registry.npmmirror.com/@nicolo-ribaudo/eslint-scope-5-internals/5.1.1-v1
-      eslint-visitor-keys: registry.npmmirror.com/eslint-visitor-keys/2.1.0
-      semver: registry.npmmirror.com/semver/6.3.0
     dev: false
 
   registry.npmmirror.com/@babel/eslint-parser/7.19.1_ustmoyzvfgos66cf2wvsplsloa:
@@ -3769,6 +3759,12 @@ packages:
     name: delayed-stream
     version: 1.0.0
     engines: {node: '>=0.4.0'}
+    dev: false
+
+  registry.npmmirror.com/delta-e/0.0.8:
+    resolution: {integrity: sha512-xIggbz7AoZLjwyV+BatfsKhWB1ejeh6vabM4KTJ2e7/d+TS0f7s87aUfkJ7B+MfniM6DD5VOWWlqcKXksp5mIg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/delta-e/-/delta-e-0.0.8.tgz}
+    name: delta-e
+    version: 0.0.8
     dev: false
 
   registry.npmmirror.com/destr/1.2.1:
@@ -7415,18 +7411,6 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  registry.npmmirror.com/pizzip/3.1.3:
-    resolution: {integrity: sha512-IR1PQS7W3912CQe93nbnKVlWGnSImYQDwed1bGdpVpXsOt61bXhg9+LzGOsqcK/sbIt5WLkjWXj6RCPt12ktqg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/pizzip/-/pizzip-3.1.3.tgz}
-    name: pizzip
-    version: 3.1.3
-    dependencies:
-      '@babel/eslint-parser': registry.npmmirror.com/@babel/eslint-parser/7.19.1
-      pako: registry.npmmirror.com/pako/2.1.0
-    transitivePeerDependencies:
-      - '@babel/core'
-      - eslint
-    dev: false
-
   registry.npmmirror.com/pizzip/3.1.3_ustmoyzvfgos66cf2wvsplsloa:
     resolution: {integrity: sha512-IR1PQS7W3912CQe93nbnKVlWGnSImYQDwed1bGdpVpXsOt61bXhg9+LzGOsqcK/sbIt5WLkjWXj6RCPt12ktqg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/pizzip/-/pizzip-3.1.3.tgz}
     id: registry.npmmirror.com/pizzip/3.1.3
@@ -8170,6 +8154,12 @@ packages:
     engines: {node: '>=12'}
     dev: false
     optional: true
+
+  registry.npmmirror.com/smartcrop/2.0.5:
+    resolution: {integrity: sha512-aXoHTM8XlC51g96kgZkYxZ2mx09/ibOrIVLiUNOFozV/MHmFSgEr1/5CKVBoFD5vd+re2wSy0xra21CyjRITzA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/smartcrop/-/smartcrop-2.0.5.tgz}
+    name: smartcrop
+    version: 2.0.5
+    dev: false
 
   registry.npmmirror.com/sort-keys-length/1.0.1:
     resolution: {integrity: sha512-GRbEOUqCxemTAk/b32F2xa8wDTs+Z1QHOkbhJDQTvv/6G3ZkbJ+frYWsTcc7cBB3Fu4wy4XlLCuNtJuMn7Gsvw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/sort-keys-length/-/sort-keys-length-1.0.1.tgz}

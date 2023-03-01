@@ -10,9 +10,11 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "canny-edge-detector": "^1.0.0",
         "crawlee": "^3.2.2",
+        "delta-e": "^0.0.8",
         "download": "^8.0.0",
-        "image-js": "^0.35.3"
+        "image-js": "^0.35.3",
+        "sharp": "^0.31.2",
+        "smartcrop": "^2.0.5"
     }
 }
