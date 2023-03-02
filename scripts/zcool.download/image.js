@@ -3,8 +3,13 @@ const path = require('path');
 const sharp = require('sharp');
 const DeltaE = require('delta-e');
 
-const imageName = 'test.jpg';
-const imagePath = path.resolve(__dirname, imageName);
+const inputDir = path.resolve(__dirname, './output/black');
+const outputDir = `${inputDir}_cutting`;
+
+const COLOR_THRESHOLD = 2;
+const BORDER_THRESHOLD = 8;
+const WHITE_BOUNDARY_COLOR = { r: 255, g: 255, b: 255 };
+const BLOCK_BOUNDARY_COLOR = { r: 0, g: 0, b: 0 };
 
 // rgb转为lab
 const rgb2lab = function ({ r, g, b }) {
@@ -71,16 +76,118 @@ const calDistance = (current, source) => {
     const [cl, ca, cb] = rgb2lab(current);
     const [sl, sa, sb] = rgb2lab(source);
 
-    const distance = DeltaE.getDeltaE00({ L: cl, A: ca, B: cb }, { L: sl, A: sa, B: sb });
+    const distance = DeltaE.getDeltaE00(
+        { L: cl, A: ca, B: cb },
+        { L: sl, A: sa, B: sb }
+    );
     return distance;
 };
 
-const calCropArea = async (imagePath, boundaryColor = { r: 255, g: 255, b: 255 }) => {
+/**
+ * 剔除图片外围空白区域
+ * @param {*} imagePath
+ * @returns
+ */
+const trimImage = async (imagePath) => {
     const imageBuffer = await sharp(imagePath).trim().png().toBuffer();
-    await sharp(imageBuffer).toFile('trim.png');
-    const { data, info } = await sharp(imageBuffer).raw().toBuffer({ resolveWithObject: true });
+    return imageBuffer;
+};
 
-    const verticalRanges = [];
+/**
+ * 横向切割
+ * @param {*} imageBuffer
+ * @param {*} boundaryColor
+ */
+const transversalCutting = async (
+    imgBuffer,
+    imageName,
+    boundaryColor = { r: 255, g: 255, b: 255 }
+) => {
+    const trimImageBuffer = await sharp(imgBuffer).trim().toBuffer();
+
+    const { data, info } = await sharp(trimImageBuffer)
+        .raw()
+        .toBuffer({ resolveWithObject: true });
+
+    let horizontalPoints = [0];
+
+    for (let col = 0; col < info.width; col++) {
+        let count = 0;
+
+        for (let row = 0; row < info.height; row++) {
+            const index = (row * info.width + col) * info.channels;
+
+            const r = data[index];
+            const g = data[index + 1];
+            const b = data[index + 2];
+            const d = calDistance({ r, g, b }, boundaryColor);
+
+            if (d > COLOR_THRESHOLD) {
+                break;
+            }
+
+            count += 1;
+        }
+
+        if (count !== info.height) {
+            continue;
+        }
+
+        horizontalPoints.push(col);
+    }
+
+    horizontalPoints.push(info.width - 1);
+
+    horizontalPoints = [...new Set(horizontalPoints)];
+
+    const horizontalRanges = [];
+
+    while (horizontalPoints.length) {
+        const p1 = horizontalPoints[0];
+        const p2 = horizontalPoints[1];
+
+        if (p2 - p1 > 100) {
+            horizontalRanges.push([p1, p2]);
+        }
+        horizontalPoints.shift();
+    }
+
+    const tasks = horizontalRanges.map(async (range, index) => {
+        const rect = {
+            left: range[0],
+            top: 0,
+            width: range[1] - range[0],
+            height: info.height,
+        };
+
+        const extractItem = await sharp(trimImageBuffer)
+            .extract(rect)
+            .toBuffer();
+
+        await sharp(extractItem)
+            .trim()
+            .resize(1024)
+            .toFile(path.resolve(outputDir, `${imageName}-${index}.png`));
+    });
+
+    await Promise.all(tasks);
+};
+
+/**
+ *  纵向切割
+ * @param {*} imageBuffer
+ * @param {*} boundaryColor
+ * @returns
+ */
+const longitudinalCutting = async (
+    imageBuffer,
+    fileName,
+    boundaryColor = { r: 255, g: 255, b: 255 }
+) => {
+    const { data, info } = await sharp(imageBuffer)
+        .raw()
+        .toBuffer({ resolveWithObject: true });
+
     const verticalPoints = [0];
 
     for (let row = 0; row < info.height; row++) {
@@ -93,7 +200,7 @@ const calCropArea = async (imagePath, boundaryColor = { r: 255, g: 255, b: 255 }
             const b = data[index + 2];
             const d = calDistance({ r, g, b }, boundaryColor);
 
-            if (d > 0.5) {
+            if (d > COLOR_THRESHOLD) {
                 break;
             }
 
@@ -104,72 +211,64 @@ const calCropArea = async (imagePath, boundaryColor = { r: 255, g: 255, b: 255 }
             continue;
         }
 
-        console.log(row);
         verticalPoints.push(row);
-
-        // if (!verticalPoints.length) {
-        //     verticalPoints.push(row);
-        // } else {
-        //     const lastPoint = verticalPoints[verticalPoints.length - 1];
-        //     if (lastPoint === row - 1) {
-        //         verticalPoints.pop();
-        //     }
-        //     verticalPoints.push(row);
-        // }
-
-        // if (verticalPoints.length === 2) {
-        //     verticalRanges.push([...verticalPoints]);
-        //     verticalPoints.shift();
-        // }
     }
 
     verticalPoints.push(info.height - 1);
 
-    const xAxisData = Array.from({ length: info.height })
-        .fill(0)
-        .map((_, index) => index);
-    const seriesData = Array.from({ length: info.height }).fill(0);
-    verticalPoints.forEach((point) => {
-        seriesData[point] = info.width;
-    });
-    const option = {
-        xAxis: {
-            type: 'category',
-            data: xAxisData,
-        },
-        yAxis: {
-            type: 'value',
-        },
-        series: [
-            {
-                data: seriesData,
-                type: 'line',
-            },
-        ],
-    };
-    console.log(verticalPoints, info);
-    await fs.promises.writeFile('verticalPoints.json', JSON.stringify(verticalPoints));
-    await fs.promises.writeFile('option.json', JSON.stringify(option));
-    // const effectiveRanges = verticalRanges.filter((range) => range[1] - range[0] > 50);
-    // await effectiveRanges.reduce(async (promise, range, index) => {
-    //     await promise;
-    //     const rect = {
-    //         left: 0,
-    //         top: range[0],
-    //         width: info.width,
-    //         height: range[1] - range[0],
-    //     };
+    const verticalRanges = [];
 
-    //     await sharp(imageBuffer)
-    //         .extract(rect)
-    //         .toFile(`crop-${index}.png`, function (err) {
-    //             console.log(err);
-    //         });
-    // }, Promise.resolve());
-    // return effectiveRanges;
+    while (verticalPoints.length) {
+        const p1 = verticalPoints[0];
+        const p2 = verticalPoints[1];
+
+        if (p2 - p1 > BORDER_THRESHOLD) {
+            verticalRanges.push([p1, p2]);
+        }
+        verticalPoints.shift();
+    }
+
+    const tasks = verticalRanges.map(async (range, index) => {
+        const rect = {
+            left: 0,
+            top: range[0],
+            width: info.width,
+            height: range[1] - range[0],
+        };
+
+        const verticalItemBuffer = await sharp(imageBuffer)
+            .extract(rect)
+            .toBuffer();
+
+        await transversalCutting(
+            verticalItemBuffer,
+            `${fileName}-${index}`,
+            boundaryColor
+        );
+    });
+
+    await Promise.all(tasks);
+};
+
+const cuttingImage = async (imagePath, boundaryColor) => {
+    const fileName = path.basename(imagePath, path.extname(imagePath));
+    const imageBuffer = await trimImage(imagePath);
+    await longitudinalCutting(imageBuffer, fileName, boundaryColor);
+    console.log(`cutting: ${imagePath}`);
 };
 
 (async function () {
-    const res = await calCropArea(imagePath);
-    console.log(res);
+    if (!fs.existsSync(outputDir)) {
+        await fs.promises.mkdir(outputDir);
+    }
+
+    const files = await fs.promises.readdir(inputDir);
+    await files.reduce(async (promise, fileName) => {
+        await promise;
+        await cuttingImage(
+            path.resolve(inputDir, fileName),
+            BLOCK_BOUNDARY_COLOR
+        );
+    }, Promise.resolve());
+    console.log('done~');
 })();
