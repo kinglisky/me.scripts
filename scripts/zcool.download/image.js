@@ -10,6 +10,7 @@ const COLOR_THRESHOLD = 2;
 const BORDER_THRESHOLD = 8;
 const WHITE_BOUNDARY_COLOR = { r: 255, g: 255, b: 255 };
 const BLOCK_BOUNDARY_COLOR = { r: 0, g: 0, b: 0 };
+const OUTPUT_SIZE = 1024;
 
 // rgb转为lab
 const rgb2lab = function ({ r, g, b }) {
@@ -76,10 +77,7 @@ const calDistance = (current, source) => {
     const [cl, ca, cb] = rgb2lab(current);
     const [sl, sa, sb] = rgb2lab(source);
 
-    const distance = DeltaE.getDeltaE00(
-        { L: cl, A: ca, B: cb },
-        { L: sl, A: sa, B: sb }
-    );
+    const distance = DeltaE.getDeltaE00({ L: cl, A: ca, B: cb }, { L: sl, A: sa, B: sb });
     return distance;
 };
 
@@ -105,9 +103,7 @@ const transversalCutting = async (
 ) => {
     const trimImageBuffer = await sharp(imgBuffer).trim().toBuffer();
 
-    const { data, info } = await sharp(trimImageBuffer)
-        .raw()
-        .toBuffer({ resolveWithObject: true });
+    const { data, info } = await sharp(trimImageBuffer).raw().toBuffer({ resolveWithObject: true });
 
     let horizontalPoints = [0];
 
@@ -160,13 +156,11 @@ const transversalCutting = async (
             height: info.height,
         };
 
-        const extractItem = await sharp(trimImageBuffer)
-            .extract(rect)
-            .toBuffer();
+        const extractItem = await sharp(trimImageBuffer).extract(rect).toBuffer();
 
         await sharp(extractItem)
             .trim()
-            .resize(1024)
+            .resize(OUTPUT_SIZE)
             .toFile(path.resolve(outputDir, `${imageName}-${index}.png`));
     });
 
@@ -184,9 +178,7 @@ const longitudinalCutting = async (
     fileName,
     boundaryColor = { r: 255, g: 255, b: 255 }
 ) => {
-    const { data, info } = await sharp(imageBuffer)
-        .raw()
-        .toBuffer({ resolveWithObject: true });
+    const { data, info } = await sharp(imageBuffer).raw().toBuffer({ resolveWithObject: true });
 
     const verticalPoints = [0];
 
@@ -236,15 +228,9 @@ const longitudinalCutting = async (
             height: range[1] - range[0],
         };
 
-        const verticalItemBuffer = await sharp(imageBuffer)
-            .extract(rect)
-            .toBuffer();
+        const verticalItemBuffer = await sharp(imageBuffer).extract(rect).toBuffer();
 
-        await transversalCutting(
-            verticalItemBuffer,
-            `${fileName}-${index}`,
-            boundaryColor
-        );
+        await transversalCutting(verticalItemBuffer, `${fileName}-${index}`, boundaryColor);
     });
 
     await Promise.all(tasks);
@@ -262,13 +248,13 @@ const cuttingImage = async (imagePath, boundaryColor) => {
         await fs.promises.mkdir(outputDir);
     }
 
+    const boundaryColor = inputDir.endsWith('white') ? WHITE_BOUNDARY_COLOR : BLOCK_BOUNDARY_COLOR;
+
     const files = await fs.promises.readdir(inputDir);
     await files.reduce(async (promise, fileName) => {
         await promise;
-        await cuttingImage(
-            path.resolve(inputDir, fileName),
-            BLOCK_BOUNDARY_COLOR
-        );
+        await cuttingImage(path.resolve(inputDir, fileName), boundaryColor);
     }, Promise.resolve());
+
     console.log('done~');
 })();
