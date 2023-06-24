@@ -1,0 +1,29 @@
+xlsxList:
+    - filePath: ./download/input0.xlsx
+      primaryKey: 姓名
+
+    - filePath: ./download/input1.xlsx
+      primaryKey: 学生姓名
+
+    - filePath: ./download/input2.xlsx
+      primaryKey: 学生姓名
+
+output: ./output
+
+schema:
+    序号: 座号
+    学生姓名: 姓名
+    性别: 男
+    座号: 座号
+    籍贯: 户口所在地
+    居住区: 现居住详细地址
+    居住镇/街道: 现居住详细地址
+    居住社区: 家庭住址所属社区
+    居住小区: 现居住详细地址
+    家庭成员1姓名: 成员1姓名
+    关系_1: 成员1关系
+    电话_1: 成员1联系电话
+    家庭成员2姓名: 成员2姓名
+    关系_2: 成员2关系
+    电话_2: 成员2联系电话
+    备注: 备注
