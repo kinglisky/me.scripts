@@ -55,7 +55,7 @@ const genExcel = async (rows, config) => {
     });
     const handles = {
         籍贯: (val) => {
-            return val.includes('晋安') || val.includes('福州市') ? '福建省福州市' : val;
+            return val;
         },
         居住区: (val) => {
             return val.includes('晋安') ? '晋安区' : val;
