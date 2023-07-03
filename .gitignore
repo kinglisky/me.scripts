@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 download
 config
+input
 output
 lib
 dist
